@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>경원세기ENC 홈페이지 시안</title>
+<title>경원세기ENC | 공조냉난방 설비 설계·시공</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Gothic+A1:wght@400;500;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap">
@@ -15,11 +15,11 @@
   --ink: #16212b;
   --muted: #5a6875;
   --line: #d8dfe6;
-  --steel: #1f4e6e;
-  --steel-soft: #e3edf4;
-  --copper: #b5652f;
-  --copper-soft: #f6e9df;
-  --band: #16303f;
+  --steel: #1a5fa8;
+  --steel-soft: #ddeeff;
+  --copper: #0a6ebd;
+  --copper-soft: #e0eef9;
+  --band: #0d2137;
   --band-ink: #e8eef2;
   --band-muted: #9fb3c1;
   --f-display: "Black Han Sans", "Gothic A1", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
@@ -30,14 +30,14 @@
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --bg: #0f161c; --surface: #16212a; --ink: #e6edf2; --muted: #9aabb8; --line: #263540;
-    --steel: #7fb3d6; --steel-soft: #1a2c39; --copper: #e0965e; --copper-soft: #33241a;
-    --band: #0a1116; --band-ink: #e6edf2; --band-muted: #8ea2b0; color-scheme: dark;
+    --steel: #5aabee; --steel-soft: #0e2336; --copper: #4fa8e8; --copper-soft: #0a1e30;
+    --band: #040d15; --band-ink: #e6edf2; --band-muted: #8ea2b0; color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
   --bg: #0f161c; --surface: #16212a; --ink: #e6edf2; --muted: #9aabb8; --line: #263540;
-  --steel: #7fb3d6; --steel-soft: #1a2c39; --copper: #e0965e; --copper-soft: #33241a;
-  --band: #0a1116; --band-ink: #e6edf2; --band-muted: #8ea2b0; color-scheme: dark;
+  --steel: #5aabee; --steel-soft: #0e2336; --copper: #4fa8e8; --copper-soft: #0a1e30;
+  --band: #040d15; --band-ink: #e6edf2; --band-muted: #8ea2b0; color-scheme: dark;
 }
 * { box-sizing: border-box; }
 body { background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 16px; line-height: 1.7; }
@@ -62,14 +62,26 @@ nav a { text-decoration: none; color: var(--muted); }
 nav a:hover { color: var(--ink); }
 .call { font-family: var(--f-mono); font-weight: 500; background: var(--steel); color: var(--bg); padding: 8px 14px; border-radius: 999px; text-decoration: none; font-size: .9rem; }
 
-.hero { padding-block: 64px 56px; }
-.hero .wrap { display: grid; grid-template-columns: 1.2fr 1fr; gap: 48px; align-items: center; }
-.hero h1 { font-family: var(--f-display); font-weight: 400; font-size: clamp(2.1rem, 5.2vw, 3.4rem); line-height: 1.18; margin-top: 12px; }
-.hero h1 em { font-style: normal; color: var(--copper); }
-.hero .lead { color: var(--muted); font-size: 1.08rem; margin-top: 20px; max-width: 34em; }
+.hero { padding-block: 80px 72px; background: linear-gradient(135deg, #0d2137 0%, #1a5fa8 100%); color: #e8eef2; }
+.hero .wrap { max-width: 760px; }
+.hero h1 { font-family: var(--f-display); font-weight: 400; font-size: clamp(2.1rem, 5.2vw, 3.4rem); line-height: 1.18; margin-top: 12px; color: #ffffff; }
+.hero h1 em { font-style: normal; color: #7dcfff; }
+.hero .lead { color: #b8cfe0; font-size: 1.08rem; margin-top: 20px; max-width: 34em; }
+.hero .eyebrow { color: #7dcfff; }
 .hero-cta { display: flex; gap: 12px; margin-top: 28px; flex-wrap: wrap; }
 .btn { display: inline-block; padding: 13px 22px; border-radius: 8px; font-weight: 700; text-decoration: none; font-size: .98rem; border: 1px solid transparent; cursor: pointer; font-family: var(--f-body); }
 .btn-primary { background: var(--copper); color: #fff; }
+.hero .btn-primary { background: #ffffff; color: #0d2137; }
+.hero .btn-ghost { border-color: rgba(255,255,255,0.4); color: #ffffff; background: transparent; }
+
+.stats-bar { background: var(--surface); border-bottom: 1px solid var(--line); }
+.stats-bar .wrap { display: grid; grid-template-columns: repeat(4, 1fr); }
+.stat { padding: 28px 20px; text-align: center; border-right: 1px solid var(--line); }
+.stat:last-child { border-right: none; }
+.stat-num { display: block; font-family: var(--f-mono); font-size: 2rem; font-weight: 700; color: var(--copper); line-height: 1; }
+.stat-num small { font-size: 1rem; }
+.stat-label { display: block; font-size: .85rem; color: var(--muted); margin-top: 6px; }
+@media (max-width: 600px) { .stats-bar .wrap { grid-template-columns: repeat(2, 1fr); } .stat { border-bottom: 1px solid var(--line); } }
 .btn-ghost { border-color: var(--line); color: var(--ink); background: var(--surface); }
 
 .spec { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 22px; min-width: 0; }
@@ -145,8 +157,6 @@ footer .wrap { display: flex; justify-content: space-between; gap: 12px; flex-wr
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 </style>
 
-<div class="draft"><b>시안</b> · 전화번호, 주소, 경력 연수는 임시 값입니다. 확정되면 바꿉니다.</div>
-
 <header class="top">
   <div class="wrap">
     <div class="logo">
@@ -181,6 +191,15 @@ footer .wrap { display: flex; justify-content: space-between; gap: 12px; flex-wr
       </div>
     </div>
   </section>
+
+  <div class="stats-bar">
+    <div class="wrap">
+      <div class="stat"><span class="stat-num">40<small>년</small></span><span class="stat-label">현장 경력</span></div>
+      <div class="stat"><span class="stat-num">24<small>h</small></span><span class="stat-label">긴급 출동</span></div>
+      <div class="stat"><span class="stat-num">100<small>%</small></span><span class="stat-label">직접 시공</span></div>
+      <div class="stat"><span class="stat-num">0<small>원</small></span><span class="stat-label">현장 견적 비용</span></div>
+    </div>
+  </div>
 
   <section id="services">
     <div class="wrap">
