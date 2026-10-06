@@ -1,0 +1,367 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>경원세기ENC 홈페이지 시안</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Gothic+A1:wght@400;500;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: 좁은 단일 컬럼 + 넓은 밴드. 차가운 스틸 블루 바탕에 냉매 동관(구리) 색을 포인트로 */
+:root {
+  --bg: #f4f6f8;
+  --surface: #ffffff;
+  --ink: #16212b;
+  --muted: #5a6875;
+  --line: #d8dfe6;
+  --steel: #1f4e6e;
+  --steel-soft: #e3edf4;
+  --copper: #b5652f;
+  --copper-soft: #f6e9df;
+  --band: #16303f;
+  --band-ink: #e8eef2;
+  --band-muted: #9fb3c1;
+  --f-display: "Black Han Sans", "Gothic A1", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  --f-body: "Gothic A1", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  --radius: 10px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f161c; --surface: #16212a; --ink: #e6edf2; --muted: #9aabb8; --line: #263540;
+    --steel: #7fb3d6; --steel-soft: #1a2c39; --copper: #e0965e; --copper-soft: #33241a;
+    --band: #0a1116; --band-ink: #e6edf2; --band-muted: #8ea2b0; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0f161c; --surface: #16212a; --ink: #e6edf2; --muted: #9aabb8; --line: #263540;
+  --steel: #7fb3d6; --steel-soft: #1a2c39; --copper: #e0965e; --copper-soft: #33241a;
+  --band: #0a1116; --band-ink: #e6edf2; --band-muted: #8ea2b0; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 16px; line-height: 1.7; }
+.wrap { max-width: 1080px; margin: 0 auto; padding-inline: 20px; }
+h1, h2, h3 { text-wrap: balance; margin: 0; }
+h2 { font-family: var(--f-display); font-weight: 400; font-size: clamp(1.6rem, 3.5vw, 2.2rem); line-height: 1.25; }
+h3 { font-size: 1.05rem; font-weight: 800; }
+p { margin: 0; }
+.eyebrow { font-family: var(--f-mono); font-size: .78rem; letter-spacing: .08em; color: var(--copper); text-transform: uppercase; }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--copper); outline-offset: 2px; }
+
+.draft { background: var(--copper-soft); color: var(--ink); font-size: .85rem; text-align: center; padding-block: 8px; padding-inline: 16px; }
+.draft b { color: var(--copper); }
+
+header.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); border-bottom: 1px solid var(--line); }
+header.top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 14px; flex-wrap: wrap; }
+.logo { display: flex; align-items: center; gap: 10px; font-family: var(--f-display); font-size: 1.3rem; }
+.logo-mark { width: 30px; height: 30px; }
+nav { display: flex; gap: 20px; font-size: .92rem; font-weight: 500; flex-wrap: wrap; }
+nav a { text-decoration: none; color: var(--muted); }
+nav a:hover { color: var(--ink); }
+.call { font-family: var(--f-mono); font-weight: 500; background: var(--steel); color: var(--bg); padding: 8px 14px; border-radius: 999px; text-decoration: none; font-size: .9rem; }
+
+.hero { padding-block: 64px 56px; }
+.hero .wrap { display: grid; grid-template-columns: 1.2fr 1fr; gap: 48px; align-items: center; }
+.hero h1 { font-family: var(--f-display); font-weight: 400; font-size: clamp(2.1rem, 5.2vw, 3.4rem); line-height: 1.18; margin-top: 12px; }
+.hero h1 em { font-style: normal; color: var(--copper); }
+.hero .lead { color: var(--muted); font-size: 1.08rem; margin-top: 20px; max-width: 34em; }
+.hero-cta { display: flex; gap: 12px; margin-top: 28px; flex-wrap: wrap; }
+.btn { display: inline-block; padding: 13px 22px; border-radius: 8px; font-weight: 700; text-decoration: none; font-size: .98rem; border: 1px solid transparent; cursor: pointer; font-family: var(--f-body); }
+.btn-primary { background: var(--copper); color: #fff; }
+.btn-ghost { border-color: var(--line); color: var(--ink); background: var(--surface); }
+
+.spec { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 22px; min-width: 0; }
+.spec-head { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; border-bottom: 1px dashed var(--line); padding-bottom: 12px; }
+.spec-head span { font-family: var(--f-mono); font-size: .75rem; color: var(--muted); }
+.spec dl { display: grid; grid-template-columns: auto 1fr; gap: 10px 18px; margin: 16px 0 0; font-size: .92rem; }
+.spec dt { color: var(--muted); }
+.spec dd { margin: 0; font-family: var(--f-mono); text-align: right; font-variant-numeric: tabular-nums; }
+.spec svg { width: 100%; height: auto; margin-top: 18px; display: block; }
+
+section { padding-block: 64px; }
+.sec-head { display: grid; gap: 10px; margin-bottom: 32px; max-width: 40em; }
+.sec-head p { color: var(--muted); }
+
+.services { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.svc { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 22px; display: grid; gap: 10px; align-content: start; min-width: 0; }
+.svc p { color: var(--muted); font-size: .94rem; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+.chip { font-family: var(--f-mono); font-size: .72rem; background: var(--steel-soft); color: var(--steel); padding: 3px 8px; border-radius: 4px; }
+
+.band { background: var(--band); color: var(--band-ink); }
+.band .sec-head p { color: var(--band-muted); }
+.steps { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(5, 1fr); gap: 0; counter-reset: s; }
+.steps li { padding: 20px 18px 4px 0; border-top: 2px solid var(--band-muted); position: relative; min-width: 0; }
+.steps li::before { counter-increment: s; content: "0" counter(s); font-family: var(--f-mono); color: var(--copper); font-size: .85rem; display: block; margin-bottom: 8px; }
+.steps li::after { content: ""; position: absolute; top: -6px; left: 0; width: 10px; height: 10px; border-radius: 50%; background: var(--copper); }
+.steps h3 { color: var(--band-ink); }
+.steps p { color: var(--band-muted); font-size: .9rem; margin-top: 6px; }
+
+.team { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.member { border-top: 3px solid var(--steel); padding-top: 14px; display: grid; gap: 6px; min-width: 0; }
+.member .role { font-family: var(--f-mono); font-size: .75rem; color: var(--copper); }
+.member p { color: var(--muted); font-size: .92rem; }
+
+.gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.ph { aspect-ratio: 4 / 3; max-width: 100%; background: repeating-linear-gradient(135deg, var(--steel-soft) 0 12px, var(--surface) 12px 24px); border: 1px dashed var(--line); border-radius: var(--radius); display: grid; place-items: end start; padding: 12px; }
+.ph span { background: var(--surface); font-size: .8rem; padding: 4px 8px; border-radius: 4px; color: var(--muted); }
+
+.faq { display: grid; gap: 10px; max-width: 760px; }
+.faq details { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px 18px; }
+.faq summary { font-weight: 700; cursor: pointer; }
+.faq details p { color: var(--muted); margin-top: 10px; font-size: .95rem; }
+
+.contact .wrap { display: grid; grid-template-columns: 1fr 1.2fr; gap: 40px; }
+.contact-info { display: grid; gap: 14px; align-content: start; }
+.info-row { display: grid; gap: 2px; }
+.info-row span { font-size: .8rem; color: var(--muted); }
+.info-row b { font-family: var(--f-mono); font-weight: 500; font-size: 1.1rem; }
+form { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 22px; display: grid; gap: 14px; min-width: 0; }
+.row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+label { display: grid; gap: 6px; font-size: .88rem; font-weight: 500; }
+input, select, textarea { font: inherit; padding: 10px 12px; border: 1px solid var(--line); border-radius: 6px; background: var(--bg); color: var(--ink); width: 100%; }
+textarea { min-height: 96px; resize: vertical; }
+.notice { font-size: .88rem; color: var(--steel); background: var(--steel-soft); padding: 10px 12px; border-radius: 6px; }
+
+footer { border-top: 1px solid var(--line); padding-block: 28px; font-size: .85rem; color: var(--muted); }
+footer .wrap { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+
+@media (max-width: 860px) {
+  .hero .wrap, .contact .wrap { grid-template-columns: 1fr; }
+  .services, .gallery { grid-template-columns: 1fr 1fr; }
+  .team { grid-template-columns: 1fr 1fr; }
+  .steps { grid-template-columns: 1fr; }
+  .steps li { padding: 0 0 22px 24px; border-top: 0; border-left: 2px solid var(--band-muted); }
+  .steps li::after { top: 0; left: -6px; }
+  nav { display: none; }
+}
+@media (max-width: 520px) {
+  .services, .gallery, .team, .row2 { grid-template-columns: 1fr; }
+  .hero { padding-block: 40px; }
+  section { padding-block: 48px; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+
+<div class="draft"><b>시안</b> · 전화번호, 주소, 경력 연수는 임시 값입니다. 확정되면 바꿉니다.</div>
+
+<header class="top">
+  <div class="wrap">
+    <div class="logo">
+      <svg class="logo-mark" viewBox="0 0 32 32" aria-hidden="true">
+        <rect x="2" y="6" width="28" height="14" rx="3" fill="var(--steel)"/>
+        <rect x="6" y="15" width="20" height="2" rx="1" fill="var(--bg)"/>
+        <path d="M9 24c2-2 4 2 6 0s4 2 6 0" stroke="var(--copper)" stroke-width="2" fill="none" stroke-linecap="round"/>
+      </svg>
+      경원세기ENC
+    </div>
+    <nav aria-label="주요 메뉴">
+      <a href="#services">서비스</a>
+      <a href="#process">진행 과정</a>
+      <a href="#team">시공팀</a>
+      <a href="#contact">견적 문의</a>
+    </nav>
+    <a class="call" href="tel:01053995300">010-5399-5300</a>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <div class="eyebrow">남양주 · 구리 · 서울 동부 공조냉난방</div>
+        <h1>냉난방 설비,<br><em>도면부터 시공까지</em><br>한 팀이 끝냅니다</h1>
+        <p class="lead">시스템에어컨과 냉난방기 설치, 냉매 배관, 정기 점검까지. 현장을 직접 보고 CAD 도면으로 배관 경로를 잡은 뒤 견적을 드립니다. 설계한 사람이 시공까지 책임집니다.</p>
+        <div class="hero-cta">
+          <a class="btn btn-primary" href="#contact">무료 현장 견적 받기</a>
+          <a class="btn btn-ghost" href="#services">서비스 보기</a>
+        </div>
+      </div>
+      <aside class="spec" aria-label="시공 예시 사양">
+        <div class="spec-head">
+          <h3>시공 예시 · 상가 1층</h3>
+          <span>EXAMPLE</span>
+        </div>
+        <dl>
+          <dt>면적</dt><dd>약 30평</dd>
+          <dt>장비</dt><dd>4WAY 천장형 × 2</dd>
+          <dt>냉방 능력</dt><dd>11.0 kW × 2</dd>
+          <dt>냉매</dt><dd>R-410A</dd>
+          <dt>배관</dt><dd>동관 9.52 / 15.88 mm</dd>
+          <dt>공사 기간</dt><dd>1~2일</dd>
+        </dl>
+        <svg viewBox="0 0 320 90" role="img" aria-label="실내기와 실외기를 잇는 냉매 배관 개략도">
+          <rect x="8" y="10" width="88" height="22" rx="4" fill="var(--steel-soft)" stroke="var(--steel)"/>
+          <text x="52" y="25" text-anchor="middle" font-size="10" fill="var(--steel)" font-family="IBM Plex Mono, monospace">실내기</text>
+          <path d="M96 18 H240 V56" stroke="var(--copper)" stroke-width="3" fill="none"/>
+          <path d="M96 25 H232 V56" stroke="var(--copper)" stroke-width="2" fill="none" opacity=".6"/>
+          <rect x="214" y="56" width="96" height="28" rx="4" fill="var(--steel-soft)" stroke="var(--steel)"/>
+          <text x="262" y="74" text-anchor="middle" font-size="10" fill="var(--steel)" font-family="IBM Plex Mono, monospace">실외기</text>
+          <text x="150" y="12" text-anchor="middle" font-size="9" fill="var(--muted)" font-family="IBM Plex Mono, monospace">냉매 배관</text>
+        </svg>
+      </aside>
+    </div>
+  </section>
+
+  <section id="services">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="eyebrow">Services</div>
+        <h2>하는 일</h2>
+        <p>가정, 상가, 사무실, 소규모 공장까지. 신규 설치와 교체, 이전, 수리를 모두 맡습니다.</p>
+      </div>
+      <div class="services">
+        <article class="svc">
+          <h3>시스템에어컨 설치</h3>
+          <p>천장형 실내기 위치와 배관 경로를 도면으로 잡고 시공합니다. 신축, 인테리어 공사와 일정을 맞춥니다.</p>
+          <div class="chips"><span class="chip">1WAY</span><span class="chip">4WAY</span><span class="chip">덕트형</span></div>
+        </article>
+        <article class="svc">
+          <h3>냉난방기 설치 · 이전</h3>
+          <p>벽걸이, 스탠드형 냉난방기 신규 설치와 이사 시 이전 설치. 배관 추가와 냉매 충전 포함.</p>
+          <div class="chips"><span class="chip">벽걸이</span><span class="chip">스탠드</span><span class="chip">냉매 충전</span></div>
+        </article>
+        <article class="svc">
+          <h3>냉매 · 냉온수 배관</h3>
+          <p>동관 용접과 보온, 드레인 배관까지. 배관 누설은 질소 가압으로 확인한 뒤 마감합니다.</p>
+          <div class="chips"><span class="chip">동관 용접</span><span class="chip">보온</span><span class="chip">드레인</span></div>
+        </article>
+        <article class="svc">
+          <h3>점검 · 유지보수</h3>
+          <p>냉방이 약하거나 소음이 날 때 원인을 찾아 수리합니다. 상가와 사무실은 정기 점검 계약도 가능합니다.</p>
+          <div class="chips"><span class="chip">누설 점검</span><span class="chip">세척</span><span class="chip">정기 계약</span></div>
+        </article>
+        <article class="svc">
+          <h3>설비 도면 (CAD)</h3>
+          <p>공조 배관과 장비 배치 도면을 작성합니다. 인테리어 업체나 건축주와 협의용으로 쓸 수 있습니다.</p>
+          <div class="chips"><span class="chip">AutoCAD</span><span class="chip">배관 계통도</span></div>
+        </article>
+        <article class="svc">
+          <h3>철거 · 교체</h3>
+          <p>노후 장비와 배관 철거, 신규 장비로 교체. 철거부터 재설치까지 한 번에 진행합니다.</p>
+          <div class="chips"><span class="chip">노후 장비 철거</span><span class="chip">교체 설치</span></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="process" class="band">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="eyebrow">Process</div>
+        <h2>진행 과정</h2>
+        <p>문의부터 사후 관리까지 같은 팀이 맡습니다.</p>
+      </div>
+      <ol class="steps">
+        <li><h3>문의</h3><p>전화나 문의 양식으로 장소, 평수, 원하는 장비를 알려주세요.</p></li>
+        <li><h3>현장 방문</h3><p>실내기·실외기 위치, 배관 거리, 전원을 직접 확인합니다.</p></li>
+        <li><h3>도면 · 견적</h3><p>배관 경로를 도면으로 그리고 항목별 견적서를 드립니다.</p></li>
+        <li><h3>시공</h3><p>설치, 배관, 누설 검사, 시운전까지 마칩니다.</p></li>
+        <li><h3>사후 관리</h3><p>시공 후 문제가 생기면 직접 방문해 처리합니다.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="team">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="eyebrow">Team</div>
+        <h2>2대가 함께하는 시공팀</h2>
+        <p>오랜 현장 경력의 아버지 세대와 그 일을 배우는 아들 세대가 한 팀으로 일합니다.</p>
+      </div>
+      <div class="team">
+        <div class="member"><span class="role">대표 · 공조 설계</span><h3>공조냉방 설계·시공</h3><p>현장 경력 40년. 공조 설비 설계(CAD)와 시공 총괄.</p></div>
+        <div class="member"><span class="role">시공 팀장</span><h3>배관 · 전기</h3><p>현장 경력 40년. 배관과 전기 작업, 기능사 자격 보유.</p></div>
+        <div class="member"><span class="role">현장 기술</span><h3>시공 · 철거</h3><p>토목건축 전공. 장비 설치와 철거 실무.</p></div>
+        <div class="member"><span class="role">운영 · 고객 관리</span><h3>견적 · 일정 · 정산</h3><p>견적서, 일정 조율, 세금계산서 발행과 고객 응대.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="eyebrow">Works</div>
+        <h2>시공 사례</h2>
+        <p>실제 현장 사진이 들어갈 자리입니다.</p>
+      </div>
+      <div class="gallery">
+        <div class="ph"><span>상가 시스템에어컨 설치</span></div>
+        <div class="ph"><span>아파트 냉난방기 이전</span></div>
+        <div class="ph"><span>사무실 배관 공사</span></div>
+        <div class="ph"><span>실외기 거치대 설치</span></div>
+        <div class="ph"><span>노후 장비 철거·교체</span></div>
+        <div class="ph"><span>설비 도면 작업</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="eyebrow">FAQ</div>
+        <h2>자주 묻는 질문</h2>
+      </div>
+      <div class="faq">
+        <details><summary>견적은 무료인가요?</summary><p>현장 방문 견적은 무료입니다. 방문 지역은 남양주, 구리, 서울 동부를 기본으로 하고, 그 외 지역은 문의 주시면 안내드립니다.</p></details>
+        <details><summary>장비도 같이 구입해 주시나요?</summary><p>네. 원하시는 브랜드와 모델이 있으면 그대로 진행하고, 없으면 공간과 예산에 맞는 장비를 추천해 드립니다. 장비를 따로 구입하신 경우 설치만도 가능합니다.</p></details>
+        <details><summary>공사 기간은 얼마나 걸리나요?</summary><p>벽걸이·스탠드 설치는 보통 반나절, 상가 시스템에어컨은 1~2일 정도입니다. 배관 거리와 현장 조건에 따라 달라집니다.</p></details>
+        <details><summary>세금계산서 발행이 되나요?</summary><p>사업자 고객에게는 세금계산서를 발행해 드립니다.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="contact">
+    <div class="wrap">
+      <div class="contact-info">
+        <div class="eyebrow">Contact</div>
+        <h2>견적 문의</h2>
+        <p style="color:var(--muted)">전화가 가장 빠릅니다. 사진을 문자로 보내주시면 대략적인 견적을 먼저 안내드립니다.</p>
+        <div class="info-row"><span>전화</span><b>010-5399-5300</b></div>
+        <div class="info-row"><span>상담 시간</span><b>평일·토 08:00–19:00</b></div>
+        <div class="info-row"><span>이메일</span><b style="font-family:var(--f-body)"><a href="mailto:dydtn0827@naver.com" style="text-decoration:none;color:inherit;">dydtn0827@naver.com</a></b></div>
+        <div class="info-row"><span>사무실</span><b style="font-family:var(--f-body)">경기도 남양주시 (임시)</b></div>
+      </div>
+      <form id="quote" novalidate>
+        <div class="row2">
+          <label for="q-name">성함<input id="q-name" name="name" placeholder="홍길동" required></label>
+          <label for="q-phone">연락처<input id="q-phone" name="phone" inputmode="tel" placeholder="010-1234-5678" required></label>
+        </div>
+        <div class="row2">
+          <label for="q-type">공사 종류
+            <select id="q-type" name="type">
+              <option>시스템에어컨 설치</option>
+              <option>냉난방기 설치·이전</option>
+              <option>배관 공사</option>
+              <option>점검·수리</option>
+              <option>철거·교체</option>
+              <option>기타</option>
+            </select>
+          </label>
+          <label for="q-area">장소 · 평수<input id="q-area" name="area" placeholder="예: 다산동 상가 30평"></label>
+        </div>
+        <label for="q-msg">내용<textarea id="q-msg" name="msg" placeholder="원하시는 장비, 희망 일정 등을 적어주세요."></textarea></label>
+        <button class="btn btn-primary" type="submit">문의 남기기</button>
+        <p class="notice" id="q-notice" hidden>시안 페이지라 문의가 실제로 전송되지는 않습니다. 정식 사이트에서는 이 내용이 담당자에게 전달됩니다.</p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>경원세기ENC · 사업자등록번호 000-00-00000</span>
+    <span>공조냉난방 설비 설계 · 시공</span>
+  </div>
+</footer>
+
+<script>
+document.getElementById('quote').addEventListener('submit', function (e) {
+  e.preventDefault();
+  document.getElementById('q-notice').hidden = false;
+});
+</script>
+
+</html>
